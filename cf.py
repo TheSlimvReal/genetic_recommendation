@@ -1,10 +1,10 @@
 import numpy as np
 from scipy.stats import pearsonr
-import matploblib.pyplot as plt
+import matplotlib.pyplot as plt
 
 
-PROBABILITY_OF_CROSSOVER = 0.6
-PROBABILITY_OF_MUTATION = 0.1
+PROBABILITY_OF_CROSSOVER = 0.9
+PROBABILITY_OF_MUTATION = 0.01
 POPULATION_SIZE = 200
 TOURNAMENT_SIZE = 20
 MAX_GENERATIONS = 1000
@@ -78,7 +78,7 @@ def mutation(chromosomes):
         chrom[user_rated] = user[user_rated]
 
 
-best = np.zeroes((MAX_GENERATIONS, 10))
+best = np.empty((MAX_GENERATIONS, 10))
 optimals = []
 generations = []
 
@@ -105,17 +105,24 @@ for i in range(10):
         next_pop_fitness = np.array([fitness(p) for p in next_pop])
         improvement = np.sum(next_pop_fitness) / np.sum(current_pop_fitness)
         last_leader_change = generation if max(current_pop_fitness) < max(next_pop_fitness) else last_leader_change
-        print('Generation:', generation, 'Fitness', max(next_pop_fitness), 'Improvement:', improvement)
+        print('Run:', i, 'Generation:', generation, 'Fitness', max(next_pop_fitness), 'Improvement:', improvement)
 
         best[generation][i] = max(next_pop_fitness)
 
         generation += 1
 
-    best[generation:][i] = max(next_pop_fitness)
+    best[generation:, i] = max(next_pop_fitness)
     optimals.append(max(next_pop_fitness))
     generations.append(generation)
 
 print('Average optimal', np.average(np.array(optimals)))
 print('Average generations', np.average(np.array(generations)))
 
-best_avg = np.sum(best[:max(generations)], dim=1)
+best_avg = np.average(best[:max(generations)], axis=1)
+plt.plot(np.arange(max(generations)), best_avg)
+plt.title('Population size: ' + str(POPULATION_SIZE) + ' Crossover: ' + str(PROBABILITY_OF_CROSSOVER) + '% Mutation: '
+          + str(PROBABILITY_OF_MUTATION) + '%')
+plt.xlabel('Number of generations')
+plt.ylabel('Average fitness of best value')
+plt.grid(b=True, axis='y')
+plt.show()
