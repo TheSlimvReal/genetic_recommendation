@@ -62,7 +62,8 @@ def mutation(chromosomes):
         chrom[user_rated] = user[user_rated]
 
 
-random_users = rng.choice(NUM_USERS, 20, replace=False)
+# random_users = rng.choice(NUM_USERS, 20, replace=False)
+random_users = [382]
 for ind, current_user in enumerate(random_users):
     user = matrix_base[current_user]  # User we are evaluating
     user_rated = np.where(user != 0)
@@ -141,27 +142,27 @@ for ind, current_user in enumerate(random_users):
     print('Average MAE', mae_avg[-1])
     print('----------------------------')
 
-    # plt.plot(np.arange(max(generations)), best_avg)
-    # plt.title('Population size: ' + str(POPULATION_SIZE) + ' Crossover: ' + str(PROBABILITY_OF_CROSSOVER) + '% Mutation: '
-    #           + str(PROBABILITY_OF_MUTATION) + '%')
-    # plt.xlabel('Number of generations')
-    # plt.ylabel('Average fitness of best value')
-    # plt.grid(b=True, axis='y')
-    # plt.show()
-    #
-    # plt.plot(np.arange(max(generations)), rmse_avg)
-    # plt.title('Population size: ' + str(POPULATION_SIZE) + ' Crossover: ' + str(PROBABILITY_OF_CROSSOVER) + '% Mutation: '
-    #           + str(PROBABILITY_OF_MUTATION) + '%')
-    # plt.xlabel('Number of generations')
-    # plt.ylabel('Average RMSE of best value')
-    # plt.grid(b=True, axis='y')
-    # plt.show()
-    #
-    # plt.plot(np.arange(max(generations)), mae_avg)
-    # plt.title('Population size: ' + str(POPULATION_SIZE) + ' Crossover: ' + str(PROBABILITY_OF_CROSSOVER) + '% Mutation: '
-    #           + str(PROBABILITY_OF_MUTATION) + '%')
-    # plt.xlabel('Number of generations')
-    # plt.ylabel('Average MAE of best value')
-    # plt.grid(b=True, axis='y')
-    # plt.show()
+    plt.plot(np.arange(max(generations)), best_avg)
+    plt.title('Population size: ' + str(POPULATION_SIZE) + ' Crossover: ' + str(PROBABILITY_OF_CROSSOVER) + '% Mutation: '
+              + str(PROBABILITY_OF_MUTATION) + '%')
+    plt.xlabel('Number of generations')
+    plt.ylabel('Average fitness of best value')
+    plt.grid(b=True, axis='y')
+    plt.show()
+
+    plt.plot(np.arange(max(generations)), rmse_avg)
+    plt.title('Population size: ' + str(POPULATION_SIZE) + ' Crossover: ' + str(PROBABILITY_OF_CROSSOVER) + '% Mutation: '
+              + str(PROBABILITY_OF_MUTATION) + '%')
+    plt.xlabel('Number of generations')
+    plt.ylabel('Average RMSE of best value')
+    plt.grid(b=True, axis='y')
+    plt.show()
+
+    plt.plot(np.arange(max(generations)), mae_avg)
+    plt.title('Population size: ' + str(POPULATION_SIZE) + ' Crossover: ' + str(PROBABILITY_OF_CROSSOVER) + '% Mutation: '
+              + str(PROBABILITY_OF_MUTATION) + '%')
+    plt.xlabel('Number of generations')
+    plt.ylabel('Average MAE of best value')
+    plt.grid(b=True, axis='y')
+    plt.show()
 
